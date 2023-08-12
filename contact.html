@@ -111,7 +111,7 @@ body{
   display: inline-block;
   margin-top: 12px;
 }
-.right-side .button input[type="button"]{
+.right-side .button input[type="submit"]{
   color: #fff;
   font-size: 18px;
   outline: none;
@@ -122,7 +122,18 @@ body{
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.button input[type="button"]:hover{
+.button{
+  display: inline-block;
+  background-color: var(--first-color);
+  color: black;
+  padding: .75rem 2.5rem;
+  font-weight: var(--font-semi);
+  border-radius: .5rem;
+}
+.button:hover{
+  box-shadow: 0 10px 36px rgba(0,0,0,.15);
+}
+.submit input[type="submit"]:hover{
   background: #c5cb15;
 }
 
@@ -185,20 +196,68 @@ body{
         </div>
       </div>
       <div class="right-side">
-         <form action="#">
+         <form action="form.php" method="post" id="contactForm">
         <div class="input-box">
-          <input type="text" placeholder="Enter your name">
+          <label  for="name">Name:</label>
+          <input type="text" id="name" name="name" required placeholder="Enter your name">
         </div>
+        <br>
         <div class="input-box">
-          <input type="text" placeholder="Enter your email">
+          <label  for="email">Email:</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your Email">
         </div>
         <div class="input-box message-box">
           
         </div>
         <div class="button">
-          <input type="button" value="Send Now" >
+          <button  type="submit">Submit</button>
         </div>
       </form>
+
+      <script>
+        function validateForm(event) {
+          event.preventDefault(); // Prevent the form from submitting
+    
+          // Get the form element
+          var form = document.getElementById("contactForm");
+    
+          // Get the values of the form fields
+          var name = form.elements["name"].value;
+          var email = form.elements["email"].value;
+          
+    
+          // Perform validation checks on the form fields
+          if (name.trim() === "") {
+            alert("Please enter your name.");
+            return;
+          }
+    
+          if (email.trim() === "") {
+            alert("Please enter your email address.");
+            return;
+          }
+    
+          if (!validateEmail(email)) {
+            alert("Please enter a valid email address.");
+            return;
+          }
+    
+          
+    
+          // If all validations pass, you can proceed with submitting the form
+          form.submit();
+        }
+    
+        function validateEmail(email) {
+          // Regular expression pattern for email validation
+          var emailPattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    
+          return emailPattern.test(email);
+        }
+    
+      
+    
+      </script>
     </div>
     </div>
   </div>
